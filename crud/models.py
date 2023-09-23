@@ -7,6 +7,7 @@ class Dispositivo(models.Model):
     cordenadaX = models.CharField(max_length=100)
     cordenadaY = models.CharField(max_length=100)
     consumoHora = models.CharField(max_length=100, verbose_name= "Consumo por hora")
+    fecha = models.DateTimeField(max_length=50,verbose_name="Fecha")
 
     def __str__(self):
         return self.titulo
