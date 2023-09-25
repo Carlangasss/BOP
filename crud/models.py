@@ -1,15 +1,6 @@
 from django.db import models
 
 # Create your models here.
-
-class Dispositivo(models.Model):
-    titulo = models.CharField(max_length=200, null=False, unique=True, verbose_name= "Nombre Dispositivo")
-    cordenadaX = models.CharField(max_length=100)
-    cordenadaY = models.CharField(max_length=100)
-    consumoHora = models.CharField(max_length=100, verbose_name= "Consumo por hora")
-
-    def __str__(self):
-        return self.titulo
     
 class Usuario(models.Model):
     nombreUsuario = models.CharField(verbose_name= "Nombre Usuario", max_length=100 ,null=False, unique=False)
@@ -18,6 +9,17 @@ class Usuario(models.Model):
 
     def __str__(self):
         return self.nombreUsuario
+
+class Dispositivo(models.Model):
+    titulo = models.CharField(max_length=200, null=False, unique=True, verbose_name= "Nombre Dispositivo")
+    cordenadaX = models.CharField(max_length=100)
+    cordenadaY = models.CharField(max_length=100)
+    consumoHora = models.CharField(max_length=100, verbose_name= "Consumo por hora", help_text="EN KW")
+    idUsuario = models.ForeignKey(Usuario, null=True, blank=True, on_delete=models.CASCADE)
+    
+
+    def __str__(self):
+        return self.titulo
     
 class Comuna(models.Model):
     idComuna = models.CharField(primary_key=True, unique=True,verbose_name="ID",max_length=30)
@@ -62,3 +64,13 @@ class TipoSector(models.Model):
 
     def __str__(self):
         return self.tipoSector
+
+class TipoDispositivo(models.Model):
+    idTipoDispositivo = models.CharField(primary_key=True, unique=True, verbose_name="ID",max_length=30)
+    tipoDispositivo = models.CharField(max_length=200, null=False, verbose_name="Tipo Dispositivo")
+
+    def __str__(self):
+        return self.tipoDispositivo
+    
+class HorarioUso(models.Model):
+    idHorarioUso = models.CharField(primary_key=True, unique=True, verbose_name="ID",max_length=30)
